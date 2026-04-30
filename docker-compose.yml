@@ -6,9 +6,9 @@ services:
     ports:
       - '5433:5432'
     environment:
-      - POSTGRES_USER=practice
-      - POSTGRES_PASSWORD=practice
-      - POSTGRES_DB=practice_comments
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - practice-comments-data:/var/lib/postgresql/data
 

@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: practice-comments-db
+    restart: unless-stopped
+    ports:
+      - '5433:5432'
+    environment:
+      - POSTGRES_USER=practice
+      - POSTGRES_PASSWORD=practice
+      - POSTGRES_DB=practice_comments
+    volumes:
+      - practice-comments-data:/var/lib/postgresql/data
+
+volumes:
+  practice-comments-data:

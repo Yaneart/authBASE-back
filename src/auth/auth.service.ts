@@ -63,6 +63,20 @@ export class AuthService {
     return { token, user: this.toSafeUser(user) };
   }
 
+  async validate(userId: string) {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не найден!');
+    }
+
+    return this.toSafeUser(user);
+  }
+
   private signToken(userId: string) {
     return this.jwtService.signAsync({ sub: userId });
   }

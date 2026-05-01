@@ -18,8 +18,6 @@ export class AuthService {
   ) {}
 
   async register(dto: RegisterDto) {
-    const passwordHash = await bcrypt.hash(dto.password, 10);
-
     const existing = await this.prismaService.user.findUnique({
       where: {
         email: dto.email,
@@ -29,6 +27,8 @@ export class AuthService {
     if (existing) {
       throw new ConflictException('Пользователь с таким email уже существует');
     }
+
+    const passwordHash = await bcrypt.hash(dto.password, 10);
 
     const user = await this.prismaService.user.create({
       data: {
@@ -50,13 +50,13 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new UnauthorizedException('Неверный Email или Login');
+      throw new UnauthorizedException('Неверный Email или пароль');
     }
 
     const passwordOk = await bcrypt.compare(dto.password, user.password);
 
     if (!passwordOk) {
-      throw new UnauthorizedException('Неверный Email или Login');
+      throw new UnauthorizedException('Неверный Email или пароль');
     }
 
     const token = await this.signToken(user.id);

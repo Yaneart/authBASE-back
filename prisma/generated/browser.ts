@@ -27,3 +27,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type Comment = Prisma.CommentModel
+/**
+ * Model RefreshToken
+ * 
+ */
+export type RefreshToken = Prisma.RefreshTokenModel

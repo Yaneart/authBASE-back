@@ -15,7 +15,8 @@ model User {
   name      String
   createdAt DateTime @default(now())
 
-  comments Comment[]
+  comments      Comment[]
+  refreshTokens RefreshToken[]
 }
 
 model Comment {
@@ -25,4 +26,16 @@ model Comment {
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

@@ -28,6 +28,7 @@ export class CommentsService {
       data: {
         userId,
         text: dto.text,
+        parentId: dto.parentId,
       },
     });
   }

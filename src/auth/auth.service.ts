@@ -112,7 +112,7 @@ export class AuthService {
       throw new UnauthorizedException('Refresh-токен не найден');
     }
 
-    await this.prismaService.refreshToken.delete({
+    await this.prismaService.refreshToken.deleteMany({
       where: { id: stored.id },
     });
 
